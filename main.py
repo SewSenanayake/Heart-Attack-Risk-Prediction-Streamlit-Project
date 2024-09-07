@@ -1,4 +1,4 @@
-imimport streamlit as st
+import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,25 +8,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
 
-# Page styling with CSS
-st.markdown("""
-    <style>
-        .main {
-            background-color: #F0F0F0;
-        }
-        .stButton button {
-            background-color: #FF6F61;
-            color: white;
-        }
-        .stSidebar {
-            background-color: #D3D3D3;
-        }
-    </style>
-""", unsafe_allow_html=True)
+st.title("Heart Disease Prediction App")
 
-st.title("🌡️ Heart Disease Prediction App")
 st.image("images2.png", width=500)
-st.write("This app builds a machine learning model to predict heart disease! 💓")
+
+st.title("This app builds a machine learning model to predict heart disease!")
 
 # Load dataset
 data = pd.read_csv("data.csv")
@@ -41,26 +27,26 @@ for column in data.select_dtypes(include=['object']).columns:
     data[column] = le.fit_transform(data[column])
     label_encoders[column] = le
 
-# Sidebar menu with updated design
-menu = st.sidebar.radio("📊 Menu", ["Home", "Prediction Details"])
+# Sidebar menu
+menu = st.sidebar.radio("Menu", ["Home", "Prediction Details"])
 
 if menu == "Home":
     st.image("image3.png", width=550)
-    st.header("📋 Tabular Data of Heart Disease Features")
+    st.header("Tabular Data of Heart Disease Features")
     if st.checkbox("Show Tabular Data"):
         st.table(data.head(150))
 
-    st.header("📊 Statistical Summary of the Dataframe")
-    if st.checkbox("Show Statistics"):
+    st.header("Statistical Summary of the Dataframe")
+    if st.checkbox("Statistics"):
         st.table(data.describe())
 
-    st.header("📈 Correlation Graph")
+    st.header("Correlation Graph")
     if st.checkbox("Show Correlation Graph"):
         fig, ax = plt.subplots(figsize=(10, 6))
-        sns.heatmap(data.corr(), annot=True, cmap="viridis", ax=ax)  # Updated color palette
+        sns.heatmap(data.corr(), annot=True, cmap="coolwarm", ax=ax)
         st.pyplot(fig)
 
-    st.header("📉 Visualizations")
+    st.header("Visualizations")
 
     # Select graph type
     graph = st.selectbox("Choose the type of graph", ["Scatter Plot", "Bar Graph", "Histogram"])
@@ -72,7 +58,7 @@ if menu == "Home":
         hue_col = None if hue_col == "None" else hue_col
 
         fig, ax = plt.subplots(figsize=(12, 6))
-        sns.scatterplot(data=data, x=x_col, y=y_col, hue=hue_col, ax=ax, palette="coolwarm")
+        sns.scatterplot(data=data, x=x_col, y=y_col, hue=hue_col, ax=ax)
         ax.set_title(f"Scatter Plot of {x_col} vs {y_col}")
         st.pyplot(fig)
 
@@ -87,7 +73,7 @@ if menu == "Home":
                 counts = data[column_to_plot].value_counts().reset_index()
                 counts.columns = [column_to_plot, 'Count']
 
-                sns.barplot(x=column_to_plot, y='Count', data=counts, ax=ax, palette="muted")
+                sns.barplot(x=column_to_plot, y='Count', data=counts, ax=ax)
                 ax.set_title(f'Count of Occurrences for {column_to_plot}')
                 st.pyplot(fig)
         else:
@@ -101,7 +87,7 @@ if menu == "Home":
             
             if column_to_plot:
                 fig, ax = plt.subplots(figsize=(12, 6))
-                sns.histplot(data[column_to_plot], kde=True, ax=ax, color="darkgreen")
+                sns.histplot(data[column_to_plot], kde=True, ax=ax)
                 ax.set_title(f'Histogram of {column_to_plot}')
                 ax.set_xlabel(column_to_plot)
                 ax.set_ylabel('Frequency')
@@ -110,14 +96,10 @@ if menu == "Home":
             st.write("No numeric columns available for plotting.")
 
 if menu == "Prediction Details":
-    st.title("🧠 Heart Disease Prediction")
+    st.title("Heart Disease Prediction")
     
     # Prepare data for training
-    features = ['Age', 'Cholesterol', 'Blood Pressure', 'Heart Rate', 'Diabetes', 'Family History', 
-                'Smoking', 'Obesity', 'Alcohol Consumption', 'Exercise Hours Per Week', 'Diet', 
-                'Previous Heart Problems', 'Medication Use', 'Stress Level', 'Sedentary Hours Per Day', 
-                'Income', 'BMI', 'Triglycerides', 'Physical Activity Days Per Week', 'Sleep Hours Per Day']
-    
+    features = ['Age', 'Cholesterol', 'Blood Pressure', 'Heart Rate', 'Diabetes', 'Family History', 'Smoking', 'Obesity', 'Alcohol Consumption', 'Exercise Hours Per Week', 'Diet', 'Previous Heart Problems', 'Medication Use', 'Stress Level', 'Sedentary Hours Per Day', 'Income', 'BMI', 'Triglycerides', 'Physical Activity Days Per Week', 'Sleep Hours Per Day']
     X = data[features]
     y = data['Heart Attack Risk']
 
@@ -135,9 +117,7 @@ if menu == "Prediction Details":
     st.text(classification_report(y_test, y_pred))
 
     # User input for prediction
-    st.header("📝 Enter Details for Prediction")
-    
-    # Collect user input with updated layout
+    st.header("Enter Details for Prediction")
     age = st.number_input("Age", min_value=0, max_value=120, value=30)
     cholesterol = st.number_input("Cholesterol", min_value=0, max_value=500, value=200)
     blood_pressure = st.text_input("Blood Pressure (e.g., 120/80)")
@@ -160,10 +140,7 @@ if menu == "Prediction Details":
     sleep_hours = st.number_input("Sleep Hours Per Day", min_value=0, value=0)
     
     # Prepare user input for prediction
-    user_input = np.array([[age, cholesterol, heart_rate, diabetes, family_history, smoking, obesity, 
-                            alcohol_consumption, exercise_hours, diet, previous_heart_problems, 
-                            medication_use, stress_level, sedentary_hours, income, bmi, triglycerides, 
-                            physical_activity_days, sleep_hours]])
+    user_input = np.array([[age, cholesterol, heart_rate, diabetes, family_history, smoking, obesity, alcohol_consumption, exercise_hours, diet, previous_heart_problems, medication_use, stress_level, sedentary_hours, income, bmi, triglycerides, physical_activity_days, sleep_hours]])
     
     # Make prediction
     if st.button("Predict Heart Disease Risk"):
