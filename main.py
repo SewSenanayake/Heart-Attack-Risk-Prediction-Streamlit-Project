@@ -42,7 +42,7 @@ if menu == "Home":
 
     st.header("Correlation Graph")
     if st.checkbox("Show Correlation Graph"):
-        fig, ax = plt.subplots(figsize=(10, 6))
+        fig, ax = plt.subplots(figsize=(10, 2))
         sns.heatmap(data.corr(), annot=True, cmap="coolwarm", ax=ax)
         st.pyplot(fig)
 
