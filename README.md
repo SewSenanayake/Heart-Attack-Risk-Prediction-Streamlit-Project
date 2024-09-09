@@ -4,14 +4,21 @@ This application is a Streamlit-based tool for analyzing and predicting heart di
 
 Features
 •	Data Filtering: Filter the dataset based on different features like height and weight.
+
 •	Data Visualization: Generate scatter plots, bar graphs, and histograms to explore the dataset.
+
 •	Statistical Summary: View statistical summaries and correlation heatmaps of the dataset.
+
 •	Prediction Model: Predict the risk of heart disease using a logistic regression model based on input data.
+
 •	Media Display: Upload and display images, videos, and audio files within the application.
+
 •	Download Filtered Data: Download the filtered dataset as a CSV file.
+
 Dataset
 The dataset used in this application is a cleaned cardiovascular dataset from Kaggle. You can download it directly from the following link:
 Download the dataset from Kaggle
+
 How to Run
 1.	Clone the repository:
 git clone : https://github.com/SewSenanayake/Heart-Attack-Risk-Prediction-Streamlit-Project
