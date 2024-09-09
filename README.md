@@ -1,6 +1,7 @@
 # Heart Attack Risk Prediction-Streamlit Project
 
 This application is a Streamlit-based tool for analyzing and predicting heart disease prognosis using a cardiovascular dataset. It provides various data visualizations, statistical summaries, and predictive analytics. The application also supports media display functionality, allowing users to upload and view images, videos, and audio files.
+
 Features
 •	Data Filtering: Filter the dataset based on different features like height and weight.
 •	Data Visualization: Generate scatter plots, bar graphs, and histograms to explore the dataset.
